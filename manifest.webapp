@@ -1,0 +1,24 @@
+{
+  "name": "Explorer",
+  "description": "A file explorer to share",
+  "type" : "privileged",
+  "launch_path": "/index.html",
+  "version": "beta-0.1.1",
+  "icons": {
+    "128": "/css/images/logo_128.png"
+  },
+  "developer": {
+    "name": "Sebastian Rajo",
+    "url": "http://www.prottotipo.com/explorer"
+  },
+  "permissions": {
+    "desktop-notification": {
+      "description" : "To show notifications to the user"
+    },
+    "device-storage:sdcard": {
+      "description" : "To pick a file from the SDCARD",
+      "access": "readonly"
+    }
+  },
+  "default_locale": "en"
+}
