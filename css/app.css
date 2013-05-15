@@ -159,3 +159,21 @@ h1 {
 #li label {
 	font-size: 10px!important;
 }
+
+#path_root {
+	background: none!important;
+	height: 15px;
+	border-bottom: 0px!important;
+}
+
+label:not([for]) input[type="checkbox"] + span.folder {
+	background: url(folder.png) no-repeat center;
+}
+
+label:not([for]) input[type="checkbox"] + span.file {
+	background: url(file.png) no-repeat center;
+}
+
+#home_icon {
+	margin-right: 5px;
+}

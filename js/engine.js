@@ -1,9 +1,34 @@
+/**
+* Explorer for FirefoxOS v0.1
+*
+* Copyright Sebastián Rajo 2013.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*
+* References:
+* 
+*   - https://wiki.mozilla.org/WebAPI/DeviceStorageAPI
+*/
+
 
 (function () {
 
     SDCARD = "sdcard";
     filesToImport = [];
     root = "";
+    old_root = "";
+    isBacking = false;
 
     storage = navigator.getDeviceStorage(SDCARD);
 
@@ -12,62 +37,82 @@
       load();
     });
 
+    backhBtn = document.querySelector("#backBtn");
+    backhBtn.addEventListener ('click', function () {
+      back();
+    });
+
     load();
+
+    function back(){
+      root = old_root;
+      isBacking = true;
+      load();
+    }
 
     function load(){
 
-      shareBtn = document.querySelector("#shareBtn");
-      $('#item-list li').remove();
+      if(root == ""){
+        backhBtn.style.display = 'none';
+      } else {
+        backhBtn.style.display = 'block';
+      }
 
-      var all_files = storage.enumerate(""); 
-      flagError = true;
-      flagOk = true;
+      root_ = document.querySelector("#root_path");
+      root_.innerHTML = root;
+
+      $('#item-list li').remove();
+      var all_files = storage.enumerate(root); 
+      
       all_files.onsuccess = function() {
         while (all_files.result)  {
            var each_file = all_files.result;
+          path = each_file.name.split("/");
+          size = Math.round(each_file.size/1000);
+          if(size >= 1000){
+            size = Math.round(size/1000);
+            size += "Mb";
+          } else {
+            size += "kb"
+          }
+          if(path.length == 1){
+            $("#item-list").append('<li><label><input type="checkbox"><span class="file"></span>'
+              + '</label>' + each_file.name + " - " + size + '</li>');
+            flagError = true;
+            flagOk = true;
+          } else {
+            //TODO: fix repeated folder
+            $("#item-list").append('<li id="' + path[0] + '"><label><input type="checkbox"><span class="folder"></span>'
+              + '</label>' + path[0] + "/" + '</li>');
+          }
           
-          $("#item-list").append('<li><label><input type="checkbox"><span></span>'
-            + '</label>' + each_file.name + '</li>');
           all_files.continue(); 
         }
-        
-        if($('input[type="checkbox"]').size() == 0){
-          if(flagError) {
-            $("#item-list").append('<li id="addvCard">Ups! No files in the SDCARD.</li>');
-            $('#shareBtn').removeClass('accept');
-            $('#shareBtn').addClass('disabled');
-            $("#pickvCard").remove();
-            flagError = false;
-          }
-        } else {
-          if(flagOk){
-            flagOk = false;
-            $("#item-list").prepend('<li id="pickvCard" class="dark">Please, pick one file to share.</li>');
-            $("#addvCard").remove();
-          }
-          $('#shareBtn').removeClass('disabled');
-          $('#shareBtn').addClass('accept');
-          shareBtn.addEventListener('click', function () {
-            Lungo.Router.section("progress");
-            var filesToImport = $('input[type="checkbox"]:checked').map(function() {
-              return $(this).parent().parent().text();
-            }).get();
-            importFiles(filesToImport);
-          });
-        }
-      };
 
-      all_files.onerror = function(){
-        $('#shareBtn').removeClass('accept');
-        $('#shareBtn').addClass('disabled');
-      }
+        $('#item-list').click(function(event) {
+          var target = $(event.target);
+           if(flagOk){
+            
+            if(target.text().split("/").length > 1){
+              if(!isBacking){
+                old_root = root;
+              }
+              root = target.text().substring(0, target.text().lastIndexOf('/'));
+              load();
+            } else {
+              console.log("File to share: " + target.text());
+              importFiles(target.text());
+            }
+            flagOk = false;
+          }
+        });
+      };
+      isBacking = false;
     }
 
     function importFiles(filesToImport) {
 
-          //just the first one
-          a_file = storage.get(filesToImport[0]); 
-          console.log("File: " + a_file);
+          a_file = storage.get("/" + root + filesToImport); 
 
           a_file.onerror = function() {
             var afterNotification = function(){
@@ -89,6 +134,7 @@
             item.isVideo = true,
             item.filename = blob.name,
             item.blob = blob
+            //to share with the email we have to do this (ugly)
             var type = 'image/*';
             var nameonly = item.filename.substring(item.filename.lastIndexOf('/') + 1);
             var activity = new MozActivity({
@@ -98,12 +144,18 @@
                 number: 1,
                 blobs: [item.blob],
                 filenames: [nameonly],
-                filepaths: [item.filename] /* temporary hack for bluetooth app */
+                filepaths: [item.filename]
               }
             });
+
             activity.onerror = function(e) {
               console.warn('Share activity error:', activity.error.name);
+              load();
             };
+
+            activity.onsuccess = function(e) {
+              load();
+            }
           };
     }
 
