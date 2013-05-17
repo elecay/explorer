@@ -26,9 +26,10 @@
 
     SDCARD = "sdcard";
     filesToImport = [];
+    folders = [];
     root = "";
-    old_root = "";
     isBacking = false;
+    foldersAdded = [];
 
     storage = navigator.getDeviceStorage(SDCARD);
 
@@ -45,13 +46,15 @@
     load();
 
     function back(){
-      root = old_root;
-      isBacking = true;
+      folders = root.split("/");
+      folders.splice(folders.length - 1, 1)
+      root = folders.join("/");
       load();
     }
 
     function load(){
 
+      alreadyAdded = [];
       if(root == ""){
         backhBtn.style.display = 'none';
       } else {
@@ -65,43 +68,55 @@
       var all_files = storage.enumerate(root); 
       
       all_files.onsuccess = function() {
+       
+        foldersToSort = [];
+        filesToSort = [];
+        sizes = [];
         while (all_files.result)  {
            var each_file = all_files.result;
-          path = each_file.name.split("/");
-          size = Math.round(each_file.size/1000);
-          if(size >= 1000){
-            size = Math.round(size/1000);
-            size += "Mb";
+          n = each_file.name.split("/");
+          if(n.length == 1) {
+            filesToSort.push(n[0] + " - " + (each_file.size/1000000).toFixed(2) + "MB");
           } else {
-            size += "kb"
+            foldersToSort.push(n[0]);
           }
-          if(path.length == 1){
-            $("#item-list").append('<li><label><input type="checkbox"><span class="file"></span>'
-              + '</label>' + each_file.name + " - " + size + '</li>');
-            flagError = true;
-            flagOk = true;
-          } else {
-            //TODO: fix repeated folder
-            $("#item-list").append('<li id="' + path[0] + '"><label><input type="checkbox"><span class="folder"></span>'
-              + '</label>' + path[0] + "/" + '</li>');
-          }
-          
           all_files.continue(); 
         }
+
+        filesToSort.sort();
+        foldersToSort.sort();
+
+        for (var g = 0; g < foldersToSort.length; g++)  {
+          path = foldersToSort[g].split("/");
+          if(alreadyAdded.lastIndexOf(path[0] + "/") == -1) {
+            alreadyAdded.push(path[0] + "/");
+            $("#item-list").prepend('<li><label><input type="checkbox"><span class="folder"></span>'
+              + '</label>' + path[0] + "/" + '</li>');
+          }
+        }
+        for (var f = 0; f < filesToSort.length; f++)  {
+          path = filesToSort[f].split("/");
+          $("#item-list").append('<li><label><input type="checkbox"><span class="file"></span>'
+            + '</label>' + path + '</li>');
+        }
+        flagError = true;
+        flagOk = true;
 
         $('#item-list').click(function(event) {
           var target = $(event.target);
            if(flagOk){
-            
             if(target.text().split("/").length > 1){
               if(!isBacking){
-                old_root = root;
+                if(root == ""){
+                  root = target.text().substring(0, target.text().lastIndexOf('/'));
+                }else{
+                  root = root + "/" + target.text().substring(0, target.text().lastIndexOf('/'));
+                }
               }
-              root = target.text().substring(0, target.text().lastIndexOf('/'));
               load();
             } else {
               console.log("File to share: " + target.text());
-              importFiles(target.text());
+              importFiles(target.text().split(" -")[0]);
             }
             flagOk = false;
           }
@@ -112,18 +127,18 @@
 
     function importFiles(filesToImport) {
 
-          a_file = storage.get("/" + root + filesToImport); 
+          a_file = (root == "") ? storage.get(filesToImport) : a_file = storage.get(root + "/" + filesToImport); 
 
           a_file.onerror = function() {
             var afterNotification = function(){
               Lungo.Router.section("main");
             };
             Lungo.Notification.error(
-              "Sorry!",                                                                                   //Title
-              "We can't find a file in your SDCARD (or you have to unplug your phone).",            //Description
-              "warning",                                                                                  //Icon
-              5,                                                                                          //Time on screen
-              afterNotification                                                                           //Callback function
+              "Sorry!",
+              "We can't find a file in your SDCARD (or you have to unplug your phone).",
+              "warning",
+              5,
+              afterNotification
             );
             console.error("Error in: ", a_file.error.name);
           };
