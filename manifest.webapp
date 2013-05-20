@@ -20,5 +20,12 @@
       "access": "readonly"
     }
   },
+  "activities": {
+    "pick": {
+      "disposition": "inline",
+      "returnValue": true,
+      "href": "/index.html"
+    }
+  },
   "default_locale": "en"
 }
