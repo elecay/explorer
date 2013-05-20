@@ -28,7 +28,7 @@ section[data-transition="fade"]:hide{opacity:0}
 header,footer{position:absolute;left:0;width:100%;display:block;z-index:1}
 header{top:0;height:44px;line-height:44px;}
 header .title{margin-left:4px;float:left;z-index:-1;font-size:1.44em;}
-header .title.centered{position:absolute;left:32px!important;right:32px;text-align:center;display:inline-block}
+header .title.centered{position:absolute;left:32px;right:32px;text-align:center;display:inline-block}
 header img.title{height:26px;margin:9px auto}
 footer{bottom:0;height:44px}
 

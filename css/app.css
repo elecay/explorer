@@ -36,6 +36,7 @@
 	html{
 		font-size: 150%!important;
 	}
+	header .title.centered{position:absolute;left:45px!important;right:32px;text-align:center;display:inline-block}
 	li, small {
 		font-size: 100%!important;
 	}
@@ -48,6 +49,7 @@
 	li, small{
 		font-size: 90%!important;
 	}
+	header .title.centered{position:absolute;left:32px!important;right:32px;text-align:center;display:inline-block}
 	button{
 		height: 2.4rem;
 		line-height: 1rem;
@@ -172,6 +174,7 @@ label:not([for]) input[type="checkbox"] + span.folder {
 
 label:not([for]) input[type="checkbox"] + span.file {
 	background: url(file.png) no-repeat center;
+	background-size: 50%;
 }
 
 #home_icon {
