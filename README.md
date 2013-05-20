@@ -5,6 +5,8 @@ This is a very basic file explorer for FirefoxOS. Also allows you to share any f
 
 TODO:
 
+- Logo
 - Testing
-- Fix duplicated folders
-- Navigation
+- ~~Fix duplicated folders~~
+- ~~Navigation~~
+- Publishing on Firefox Marketplace (for free, of course)
