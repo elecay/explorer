@@ -169,12 +169,11 @@ h1 {
 }
 
 label:not([for]) input[type="checkbox"] + span.folder {
-	background: url(folder.png) no-repeat center;
+	background: url(images/folder.png) no-repeat center;
 }
 
 label:not([for]) input[type="checkbox"] + span.file {
-	background: url(file.png) no-repeat center;
-	background-size: 50%;
+	background: url(images/file.png) no-repeat center;
 }
 
 #home_icon {

@@ -135,7 +135,7 @@
 
         $('#item-list').click(function(event) {
           var target = $(event.target);
-          if(flagOk){
+          if(flagOk && target.text() != ""){
             if(target.text().split("/").length > 1){
               if(!isBacking){
                 if(root == ""){
@@ -180,12 +180,12 @@
       a_file.onsuccess = function() { 
 
         if(isPicking){
+          isPicking = false;
           activityRequest.postResult.type = a_file.result.type;
           activityRequest.postResult({
             type: a_file.result.type,
             blob: a_file.result
           });
-          isPicking = false;
         } else {
           blob = a_file.result;
           item = new Object();
@@ -197,7 +197,9 @@
           var activity = new MozActivity({
             name: 'share',
             data: {
-              type: type,
+              // this is ugly; all share options with images are shown. But right now is the
+              // only way to share with the email.
+              type: 'image/*',
               number: 1,
               blobs: [item.blob],
               filenames: [nameonly],

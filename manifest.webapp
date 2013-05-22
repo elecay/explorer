@@ -1,6 +1,6 @@
 {
   "name": "Explorer",
-  "description": "A file explorer to share",
+  "description": "A file explorer to see all your files on the SDCARD and to share them through bluetooth or your email.",
   "type" : "privileged",
   "launch_path": "/index.html",
   "version": "beta-0.1.1",
