@@ -10,3 +10,5 @@ TODO:
 - ~~Fix duplicated folders~~
 - ~~Navigation~~
 - Publishing on Firefox Marketplace (for free, of course)
+
+Icons from flypixel - http://flypixel.com/file-types/5343248717346310
