@@ -10,12 +10,14 @@ Explorer
 
 This is a very basic file explorer for FirefoxOS. Also allows you to share any file trough your email or bluetooth.
 
+Extensions with images -by now-: doc, xls, ppt, psd, ai, pdf, html, xml, txt, mp3, jpg, png and zip.
+
 TODO:
 
 - ~~Logo~~ Done by me! :)
 - Testing
 - ~~Fix duplicated folders~~
 - ~~Navigation~~
-- Publishing on Firefox Marketplace (for free, of course)
+- ~~Publishing on Firefox Marketplace (for free, of course)~~ Available in the Firefox Marketplace: 06/17/2013 aprox.
 
 Icons from flypixel - http://flypixel.com/file-types/5343248717346310
