@@ -164,7 +164,6 @@ h1 {
 
 #path_root {
 	background: none!important;
-	height: 15px;
 	border-bottom: 0px!important;
 }
 
@@ -172,10 +171,64 @@ label:not([for]) input[type="checkbox"] + span.folder {
 	background: url(images/folder.png) no-repeat center;
 }
 
-label:not([for]) input[type="checkbox"] + span.file {
-	background: url(images/file.png) no-repeat center;
+label:not([for]) input[type="checkbox"] + span.doc {
+	background: url(images/doc.png) no-repeat center;
 }
 
-#home_icon {
-	margin-right: 5px;
+label:not([for]) input[type="checkbox"] + span.xls {
+	background: url(images/xls.png) no-repeat center;
+}
+
+label:not([for]) input[type="checkbox"] + span.ppt {
+	background: url(images/ppt.png) no-repeat center;
+}
+
+label:not([for]) input[type="checkbox"] + span.psd {
+	background: url(images/psd.png) no-repeat center;
+}
+
+label:not([for]) input[type="checkbox"] + span.ai {
+	background: url(images/ai.png) no-repeat center;
+}
+
+label:not([for]) input[type="checkbox"] + span.pdf {
+	background: url(images/pdf.png) no-repeat center;
+}
+
+label:not([for]) input[type="checkbox"] + span.html {
+	background: url(images/html.png) no-repeat center;
+}
+
+label:not([for]) input[type="checkbox"] + span.xml {
+	background: url(images/xml.png) no-repeat center;
+}
+
+label:not([for]) input[type="checkbox"] + span.txt {
+	background: url(images/txt.png) no-repeat center;
+}
+
+label:not([for]) input[type="checkbox"] + span.mp3 {
+	background: url(images/mp3.png) no-repeat center;
+}
+
+label:not([for]) input[type="checkbox"] + span.jpg {
+	background: url(images/jpg.png) no-repeat center;
+}
+
+label:not([for]) input[type="checkbox"] + span.png {
+	background: url(images/png.png) no-repeat center;
+}
+
+label:not([for]) input[type="checkbox"] + span.zip {
+	background: url(images/zip.png) no-repeat center;
+}
+
+label span.home {
+	height: 20px!important;
+}
+
+span.home {
+	width: 25px;
+	display:block;
+	background: url(images/home.png) no-repeat center;
 }

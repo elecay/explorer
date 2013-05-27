@@ -70,8 +70,8 @@
         backhBtn.style.display = 'block';
       }
 
-      root_ = document.querySelector("#root_path");
-      root_.innerHTML = root;
+      root_ = document.querySelector("#path_root");
+      root_.innerHTML = '<label><span class="home"></span></label>' + root;
 
       $('#item-list li').remove();
       var cursor = storage.enumerate(root); 
@@ -92,6 +92,8 @@
       }
 
       function execute() {
+
+        filesWithImage = ['doc', 'xls', 'ppt', 'psd', 'ai', 'pdf', 'html', 'xml', 'txt', 'mp3', 'jpg', 'png', 'zip'];
 
         pathsToSort.sort(
           function(a, b) {
@@ -127,7 +129,12 @@
         }
         for (var f = 0; f < filesToSort.length; f++)  {
           path = filesToSort[f].split("/");
-          $("#item-list").append('<li><label><input type="checkbox"><span class="file"></span>'
+          fileType = path.toString().substring(0, path.toString().lastIndexOf(' -')).split(".")[1];
+          console.log("TYPE: " + fileType);
+          if(filesWithImage.indexOf(fileType) == -1){
+            fileType = 'txt';
+          }
+          $("#item-list").append('<li><label><input type="checkbox"><span class="' + fileType + '"></span>'
             + '</label>' + path + '</li>');
         }
 
