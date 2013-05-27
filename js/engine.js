@@ -132,7 +132,7 @@
           fileType = path.toString().substring(0, path.toString().lastIndexOf(' -')).split(".")[1];
           console.log("TYPE: " + fileType);
           if(filesWithImage.indexOf(fileType) == -1){
-            fileType = 'txt';
+            fileType = 'unk';
           }
           $("#item-list").append('<li><label><input type="checkbox"><span class="' + fileType + '"></span>'
             + '</label>' + path + '</li>');

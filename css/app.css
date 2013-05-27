@@ -223,6 +223,10 @@ label:not([for]) input[type="checkbox"] + span.zip {
 	background: url(images/zip.png) no-repeat center;
 }
 
+label:not([for]) input[type="checkbox"] + span.unk {
+	background: url(images/unk.png) no-repeat center;
+}
+
 label span.home {
 	height: 20px!important;
 }
