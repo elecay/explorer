@@ -1,6 +1,13 @@
 Explorer
 ========
 
+<p align="center">
+
+<img src="https://github.com/elecay/explorer/blob/master/screenshots/2013-05-26-21-58-50.png?raw=true">
+<br><em>Screenshot on a Keon Geeksphone</em>
+
+</p>
+
 This is a very basic file explorer for FirefoxOS. Also allows you to share any file trough you email or bluetooth.
 
 TODO:
