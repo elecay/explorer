@@ -5,7 +5,7 @@ This is a very basic file explorer for FirefoxOS. Also allows you to share any f
 
 TODO:
 
-- Logo
+- ~~Logo~~ Done by me! :)
 - Testing
 - ~~Fix duplicated folders~~
 - ~~Navigation~~
