@@ -1,6 +1,8 @@
 Explorer
 ========
 
+Firefox MarketPlace: [https://marketplace.firefox.com/app/explorer](https://marketplace.firefox.com/app/explorer)
+
 <p align="center">
 
 <img src="https://github.com/elecay/explorer/blob/master/screenshots/2013-05-27-00-37-02.png?raw=true">
@@ -18,10 +20,12 @@ TODO:
 - Testing
 - ~~Fix duplicated folders~~
 - ~~Navigation~~
-- ~~Publishing on Firefox Marketplace (for free, of course)~~ Available in the Firefox Marketplace: 06/17/2013 aprox.
+- ~~Publishing on Firefox Marketplace (for free, of course)~~
+~~Available in the Firefox Marketplace: 06/17/2013 aprox.~~
 
 Acknowledgements
 ----------------
 
 Lungo - A framework for developers who want to design, build and share cross device apps - http://lungo.tapquo.com/
+
 Icons from flypixel - http://flypixel.com/file-types/5343248717346310
