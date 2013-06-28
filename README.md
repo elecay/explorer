@@ -20,4 +20,8 @@ TODO:
 - ~~Navigation~~
 - ~~Publishing on Firefox Marketplace (for free, of course)~~ Available in the Firefox Marketplace: 06/17/2013 aprox.
 
+Acknowledgements
+----------------
+
+Lungo - A framework for developers who want to design, build and share cross device apps - http://lungo.tapquo.com/
 Icons from flypixel - http://flypixel.com/file-types/5343248717346310
