@@ -130,7 +130,6 @@
         for (var f = 0; f < filesToSort.length; f++)  {
           path = filesToSort[f].split("/");
           fileType = path.toString().substring(0, path.toString().lastIndexOf(' -')).split(".")[1];
-          console.log("TYPE: " + fileType);
           if(filesWithImage.indexOf(fileType) == -1){
             fileType = 'unk';
           }
@@ -140,7 +139,7 @@
 
         flagOk = true;
 
-        $('#item-list').click(function(event) {
+        $('#item-list li').click(function(event) {
           var target = $(event.target);
           if(flagOk && target.text() != ""){
             if(target.text().split("/").length > 1){
