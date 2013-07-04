@@ -83,10 +83,15 @@
         }
 
          var file = cursor.result;
+        var prefix = "/" + SDCARD + "/";
+        if (root != "") {
+           prefix += root + "/";
+        }
+        var fname = file.name.replace(prefix, "");
         if(file.name.split("/").length > 1){
-          pathsToSort.push(file.name);
+          pathsToSort.push(fname);
         } else {
-          filesToSort.push(file.name + " - " + (file.size / 1000000).toFixed(2) + "Mb");
+          filesToSort.push(fname + " - " + (file.size / 1000000).toFixed(2) + "Mb");
         }
         cursor.continue(); 
       }
@@ -238,3 +243,4 @@
   });
 
 })();
+
