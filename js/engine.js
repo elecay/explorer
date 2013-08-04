@@ -88,7 +88,7 @@
            prefix += root + "/";
         }
         var fname = file.name.replace(prefix, "");
-        if(file.name.split("/").length > 1){
+        if(fname.split("/").length > 1) {
           pathsToSort.push(fname);
         } else {
           filesToSort.push(fname + " - " + (file.size / 1000000).toFixed(2) + "Mb");
