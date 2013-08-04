@@ -157,8 +157,12 @@
               }
               load();
             } else {
-              console.log("File to share: " + target.text());
-              importFiles(target.text().substring(0, target.text().lastIndexOf(' -')));
+              var fname = target.text();
+              if (fname.lastIndexOf(' -') >= 0) {
+                fname = fname.substring(0, fname.lastIndexOf(' -'))
+              }
+              console.log("File to share: " + fname);
+              importFiles(fname);
             }
             flagOk = false;
           }
