@@ -47,6 +47,26 @@
     });
 
     storage = navigator.getDeviceStorage(SDCARD);
+    storages = [];
+    
+    deviceStoragesList = document.querySelector("#deviceStoragesList");
+    if (navigator.getDeviceStorages) {
+        storages = navigator.getDeviceStorages(SDCARD);
+        if (storages.length > 1) {
+            deviceStoragesList.style="display: block;";
+            for (var i = 0; i < storages.length; i++) {
+                var storageName = storages[i].storageName;
+                deviceStoragesList.options[i] = new Option(storageName, storageName);
+                if (storages[i].default === true) {
+                        deviceStoragesList.options[i].selected = true;
+                }
+            }
+        }
+        deviceStoragesList.addEventListener("change", function() {
+            changeDeviceStorage(this.options[this.selectedIndex].value);
+        });
+    }
+   
 
     function back(){
       isBacking = true;
@@ -54,6 +74,16 @@
       folders.splice(folders.length - 1, 1)
       root = folders.join("/");
       load();
+    }
+    
+    function changeDeviceStorage(deviceStorageName) {
+        for (var i=0; i< storages.length; i++) {
+            if (deviceStorageName === storages[i].storageName) {
+                storage = storages[i];
+                load();
+                return;
+            }
+        }
     }
 
     function load(){
