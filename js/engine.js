@@ -46,7 +46,30 @@
       back();
     });
 
+    // Open the default device storage
     storage = navigator.getDeviceStorage(SDCARD);
+    storages = [];
+    
+    deviceStoragesList = document.querySelector("#deviceStoragesList");
+    // Check that getDeviceStorages is available (only for FxOS >=1.1)
+    if (navigator.getDeviceStorages) {
+        storages = navigator.getDeviceStorages(SDCARD);
+        if (storages.length > 1) {
+            // Display the dropdown list only if there are more than one device storage available
+            deviceStoragesList.style.display = "block";
+            for (var i = 0; i < storages.length; i++) {
+                var storageName = storages[i].storageName;
+                deviceStoragesList.options[i] = new Option(storageName, storageName);
+                if (storages[i].default === true) {
+                        deviceStoragesList.options[i].selected = true;
+                }
+            }
+        }
+        deviceStoragesList.addEventListener("change", function() {
+            changeDeviceStorage(this.options[this.selectedIndex].value);
+        });
+    }
+   
 
     function back(){
       isBacking = true;
@@ -54,6 +77,22 @@
       folders.splice(folders.length - 1, 1)
       root = folders.join("/");
       load();
+    }
+    
+    /**
+     * Switches to another device storage, based on the given name
+     * @param {String} deviceStorageName Name of the device storage to switch to
+     */
+    function changeDeviceStorage(deviceStorageName) {
+        for (var i=0; i< storages.length; i++) {
+            if (deviceStorageName === storages[i].storageName) {
+                storage = storages[i];
+                // Go back to the root of the device storage, and load its content
+                root = "";
+                load();
+                return;
+            }
+        }
     }
 
     function load(){
@@ -83,7 +122,7 @@
         }
 
          var file = cursor.result;
-        var prefix = "/" + SDCARD + "/";
+        var prefix = "/" + storage.storageName + "/";
         if (root != "") {
            prefix += root + "/";
         }
