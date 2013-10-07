@@ -53,7 +53,7 @@
     if (navigator.getDeviceStorages) {
         storages = navigator.getDeviceStorages(SDCARD);
         if (storages.length > 1) {
-            deviceStoragesList.style="display: block;";
+            deviceStoragesList.style.display = "block";
             for (var i = 0; i < storages.length; i++) {
                 var storageName = storages[i].storageName;
                 deviceStoragesList.options[i] = new Option(storageName, storageName);
@@ -113,7 +113,7 @@
         }
 
          var file = cursor.result;
-        var prefix = "/" + SDCARD + "/";
+        var prefix = "/" + storage.storageName + "/";
         if (root != "") {
            prefix += root + "/";
         }
