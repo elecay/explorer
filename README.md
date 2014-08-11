@@ -10,7 +10,7 @@ Firefox MarketPlace: [https://marketplace.firefox.com/app/explorer](https://mark
 
 </p>
 
-This is a very basic file explorer for FirefoxOS. Also allows you to share any file trough your email or bluetooth.
+This is a very basic file explorer for FirefoxOS. Also allows you to share any file through your email or bluetooth.
 
 Extensions with images -by now-: doc, xls, ppt, psd, ai, pdf, html, xml, txt, mp3, jpg, png and zip.
 
