@@ -236,3 +236,6 @@ span.home {
 	display:block;
 	background: url(images/home.png) no-repeat center;
 }
+footer {
+    background: url("headers/images/ui/header.png") repeat-x scroll 0 0 / auto 100% transparent;
+}
