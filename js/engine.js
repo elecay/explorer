@@ -25,19 +25,20 @@
 
     var isPicking = false;
     var activityRequest = "";
+    var DIRECTORY = "sdcard";
 
     function runApp() {
-
-        var SDCARD = "sdcard";
+        
         var filesToImport = [];
         var folders = [];
         var root = "";
         var isBacking = false;
         var foldersAdded = [];
+        var alert = document.querySelector('#alert');
 
         var refreshBtn = document.querySelector("#refreshBtn");
         refreshBtn.addEventListener('click', function () {
-            load();
+            checkAvailability(DIRECTORY);
         });
 
         var backhBtn = document.querySelector("#backBtn");
@@ -46,13 +47,13 @@
         });
 
         // Open the default device storage
-        var storage = navigator.getDeviceStorage(SDCARD);
+        var storage = navigator.getDeviceStorage(DIRECTORY);
         var storages = [];
-
+         
         var deviceStoragesList = document.querySelector("#deviceStoragesList");
         // Check that getDeviceStorages is available (only for FxOS >=1.1)
         if (navigator.getDeviceStorages) {
-            storages = navigator.getDeviceStorages(SDCARD);
+            storages = navigator.getDeviceStorages(DIRECTORY);
             if (storages.length > 1) {
                 // Display the dropdown list only if there are more than one device storage available
                 deviceStoragesList.style.display = "block";
@@ -75,9 +76,42 @@
             folders = root.split("/");
             folders.splice(folders.length - 1, 1)
             root = folders.join("/");
-            load();
+            checkAvailability(DIRECTORY);
         }
 
+        /**
+         * Check storage availability
+         * @param {String} deviceStorageName Name of the device storage to check
+         */ 
+        function checkAvailability(deviceStorageName) {
+            var storage = navigator.getDeviceStorage(deviceStorageName);
+            var request = storage.available();
+            
+            request.onsuccess = function () {
+                
+                if (this.result == "available") {
+                    load();
+                    $('#alert').empty();
+                } else {
+
+                    if(this.result == "unavailable") {
+
+                        $('#alert').text('The ' + DIRECTORY + ' on your device is not available');
+
+                    } else {
+
+                        $('#alert').text('The ' + DIRECTORY + ' on your device is shared and thus not available');
+
+                    }
+
+                }          
+            }
+            
+            request.onerror = function () {
+                $('#alert').text('Unable to get the space used by the ' + DIRECTORY + ': ' + this.error);
+            }
+        }
+        
         /**
          * Switches to another device storage, based on the given name
          * @param {String} deviceStorageName Name of the device storage to switch to
@@ -88,7 +122,7 @@
                     storage = storages[i];
                     // Go back to the root of the device storage, and load its content
                     root = "";
-                    load();
+                    checkAvailability(DIRECTORY);
                     return;
                 }
             }
@@ -96,6 +130,9 @@
 
         function load() {
             console.log("load");
+
+            // Empty alert in case there was an error shown before.
+            $('#alert').empty();
 
             var foldersToSort = [];
             var filesToSort = [];
@@ -117,7 +154,7 @@
             var cursor = storage.enumerate(root);
 
             cursor.onsuccess = function () {
-
+                
                 if (this.result) {
                     var file = cursor.result;
                     var prefix = "/" + storage.storageName + "/";
@@ -199,7 +236,7 @@
                                     root = root + "/" + target.text().substring(0, target.text().lastIndexOf('/'));
                                 }
                             }
-                            load();
+                            checkAvailability(DIRECTORY);
                         } else {
                             var fname = target.text();
                             if (fname.lastIndexOf(' -') >= 0) {
@@ -216,7 +253,8 @@
             isBacking = false;
         }
 
-        load();
+        // Check sdcard availability before doing load function
+        checkAvailability(DIRECTORY);
 
         function importFiles(filesToImport) {
 
@@ -224,11 +262,11 @@
             a_file.onerror = function () {
                 var afterNotification = function () {
                     Lungo.Router.section("main");
-                    load();
+                    checkAvailability(DIRECTORY);
                 };
                 Lungo.Notification.error(
                     "Sorry!",
-                    "We can't find a file in your SDCARD (or you have to unplug your phone).",
+                    "We can't find a file in your DIRECTORY (or you have to unplug your phone).",
                     "warning",
                     5,
                     afterNotification
@@ -270,11 +308,11 @@
 
                     activity.onerror = function (e) {
                         console.warn('Share activity error:', activity.error.name);
-                        load();
+                        checkAvailability(DIRECTORY);
                     };
 
                     activity.onsuccess = function (e) {
-                        load();
+                        checkAvailability(DIRECTORY);
                     }
                 }
             };

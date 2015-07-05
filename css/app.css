@@ -110,6 +110,10 @@ body > section > header > nav a.left span{
 	top: 3rem!important;
 }
 
+#alert:empty {
+	display: none;
+}
+
 span.icon.brand.twitter, span.icon.refresh {
 	font-size: 100%!important;
 }
