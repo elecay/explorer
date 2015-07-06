@@ -27,5 +27,19 @@
       "href": "/index.html"
     }
   },
-  "default_locale": "en"
+  "default_locale": "en",
+  "locales": {
+    "en": {
+       "name": "Explorer",
+        "description": "A file explorer to see all your files on the SDCARD and to share them through bluetooth or your email."
+    },
+    "en-US": {
+       "name": "Explorer",
+        "description": "A file explorer to see all your files on the SDCARD and to share them through bluetooth or your email."
+    },
+    "fr": {
+      "name" : "Explorer",
+      "description": "Un explorateur pour voir tous vos fichiers sur votre SDCARD et les partager via bluetooth ou emeil"
+    }
+  }
 }

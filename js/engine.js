@@ -49,7 +49,7 @@
         // Open the default device storage
         var storage = navigator.getDeviceStorage(DIRECTORY);
         var storages = [];
-         
+
         var deviceStoragesList = document.querySelector("#deviceStoragesList");
         // Check that getDeviceStorages is available (only for FxOS >=1.1)
         if (navigator.getDeviceStorages) {
@@ -86,32 +86,36 @@
         function checkAvailability(deviceStorageName) {
             var storage = navigator.getDeviceStorage(deviceStorageName);
             var request = storage.available();
-            
+
             request.onsuccess = function () {
-                
+
                 if (this.result == "available") {
+
                     load();
-                    $('#alert').empty();
+                    alert.innerHTML = '';
+                    
+                } else if(this.result == "unavailable") {
+
+                    alert.setAttribute('data-l10n-id', 'device-not-available');
+                    alert.setAttribute('data-l10n-args', '{"folder" : "' + DIRECTORY + '"}');
+
                 } else {
 
-                    if(this.result == "unavailable") {
+                    alert.setAttribute('data-l10n-id', 'device-shared-not-available');
+                    alert.setAttribute('data-l10n-args', '{"folder" : "' + DIRECTORY + '"}');
 
-                        $('#alert').text('The ' + DIRECTORY + ' on your device is not available');
+                }
 
-                    } else {
-
-                        $('#alert').text('The ' + DIRECTORY + ' on your device is shared and thus not available');
-
-                    }
-
-                }          
             }
             
             request.onerror = function () {
-                $('#alert').text('Unable to get the space used by the ' + DIRECTORY + ': ' + this.error);
+
+                alert.setAttribute('data-l10n-id', 'device-space-retrieve-error');
+                alert.setAttribute('data-l10n-args', '{"folder" : "' + DIRECTORY + '"}');
+
             }
         }
-        
+
         /**
          * Switches to another device storage, based on the given name
          * @param {String} deviceStorageName Name of the device storage to switch to
@@ -154,7 +158,7 @@
             var cursor = storage.enumerate(root);
 
             cursor.onsuccess = function () {
-                
+
                 if (this.result) {
                     var file = cursor.result;
                     var prefix = "/" + storage.storageName + "/";
@@ -253,7 +257,7 @@
             isBacking = false;
         }
 
-        // Check sdcard availability before doing load function
+        // Check storage availability before doing load function
         checkAvailability(DIRECTORY);
 
         function importFiles(filesToImport) {
