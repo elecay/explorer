@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="en-US" dir="ltr">
+<html dir="ltr">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="pragma" content="no-cache">
+    <link rel="localization" href="locales/{locale}/app.properties" />
+    <meta name="availableLanguages" content="en-US, fr">
     <title>Explorer</title>
     <script type="text/javascript" src="js/jquery.min.js"></script>
 
@@ -11,6 +13,8 @@
     <link rel="stylesheet" href="lungo/lungo.icon.css">
     <link rel="stylesheet" href="lungo/lungo.icon.brand.css">
     <link rel="stylesheet" href="lungo/theme.lungo.css">
+
+    <link rel="resource" type="application/l10n" href="locales/locales.ini" />
 </head>
 
 <body class="app">
@@ -26,6 +30,7 @@
     </header>
     <article id="main-article" data-type="list" class="active dark list indented scroll">
         <form>
+            <span id="alert"></span>
             <select id="deviceStoragesList" class="select" style="display: none;"></select>
             <ul>
                 <li id="path_root"></li>
@@ -36,11 +41,12 @@
     </article>
     <footer data-title="Infos">
         <div data-title="space:"><span id="space"></span></div>
-
     </footer>
 </section>
 <script type="text/javascript" src="quojs/quo.js"></script>
 <script type="text/javascript" src="lungo/lungo.js"></script>
 <script type="text/javascript" src="js/engine.js"></script>
+<script type="text/javascript" src="js/l10n.js"></script>
+<script src="es6-promise.js" defer></script>
 </body>
 </html>
