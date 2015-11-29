@@ -1,0 +1,43 @@
+{
+  "name": "File Explorer",
+  "description": "A file explorer to see all your files on the SDCARD and to share them through bluetooth or your email.",
+  "type" : "privileged",
+  "launch_path": "/index.html",
+  "version": "beta-0.1.4b",
+  "icons": {
+    "128": "/css/images/logo_128.png"
+  },
+  "developer": {
+    "name": "Vegnuxmod Community",
+    "url": "http://vegnuxmod.wordpress.com"
+  },
+  "locales": {
+    "en": {
+      "name": "File Explorer",
+      "description": "A file explorer to see all your files on the SDCARD and to share them through bluetooth or your email."
+    },
+    "es": {
+      "name": "Explorador de Archivos",
+      "description": "Un explorador de archivos para ver todos los archivos en la SDCARD y compartir a través de bluetooth o por correo electrónico."
+	}
+  },
+  "role": "system",
+  "origin": "app://explorer.prottotipo.com",
+  "permissions": {
+    "desktop-notification": {
+      "description" : "To show notifications to the user"
+    },
+    "device-storage:sdcard": {
+      "description" : "To pick a file from the SDCARD",
+      "access": "readonly"
+    }
+  },
+  "activities": {
+    "pick": {
+      "disposition": "inline",
+      "returnValue": true,
+      "href": "/index.html"
+    }
+  },
+  "default_locale": "en"
+}
