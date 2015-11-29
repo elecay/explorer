@@ -110,10 +110,6 @@ body > section > header > nav a.left span{
 	top: 3rem!important;
 }
 
-#alert:empty {
-	display: none;
-}
-
 span.icon.brand.twitter, span.icon.refresh {
 	font-size: 100%!important;
 }
@@ -239,7 +235,4 @@ span.home {
 	width: 25px;
 	display:block;
 	background: url(images/home.png) no-repeat center;
-}
-footer {
-    background: url("headers/images/ui/header.png") repeat-x scroll 0 0 / auto 100% transparent;
 }
