@@ -1,0 +1,50 @@
+{
+  "name": "Explorer",
+  "description": "A file explorer to see all your files on the SDCARD and to share them through bluetooth or your email.",
+  "type" : "privileged",
+  "launch_path": "/index.html",
+  "version": "beta-0.1.1",
+  "icons": {
+    "128": "/css/images/logo_128.png"
+  },
+  "developer": {
+    "name": "Sebastian Rajo",
+    "url": "http://www.prottotipo.com/explorer"
+  },
+  "origin": "app://explorer.prottotipo.com",
+  "permissions": {
+    "desktop-notification": {
+      "description" : "To show notifications to the user"
+    },
+    "device-storage:sdcard": {
+      "description" : "To pick a file from the SDCARD",
+      "access": "readonly"
+    }
+  },
+  "activities": {
+    "pick": {
+      "disposition": "inline",
+      "returnValue": true,
+      "href": "/index.html"
+    }
+  },
+  "default_locale": "en",
+  "locales": {
+    "en": {
+       "name": "Explorer",
+        "description": "A file explorer to see all your files on the SDCARD and to share them through bluetooth or your email."
+    },
+    "en-US": {
+       "name": "Explorer",
+        "description": "A file explorer to see all your files on the SDCARD and to share them through bluetooth or your email."
+    },
+    "fr": {
+      "name" : "Explorer",
+      "description": "Un explorateur pour voir tous vos fichiers sur votre SDCARD et les partager via bluetooth ou emeil"
+    },
+    "es": {
+      "name": "Explorador",
+      "description": "Un explorador de archivos para ver todos los archivos en la SDCARD y compartir a través de bluetooth o por correo electrónico."
+	}
+  }
+}
